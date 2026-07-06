@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -53,24 +52,26 @@ export function TripSearchForm() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-full max-w-3xl mx-auto rounded-2xl border bg-card text-card-foreground shadow-lg p-6 sm:p-8 space-y-6"
-    >
+    <form onSubmit={handleSubmit} className="w-full space-y-8">
       <div className="grid gap-2">
-        <Label htmlFor="destination">Where do you want to go?</Label>
+        <Label htmlFor="destination" className="tracking-wide">
+          Where do you want to go?
+        </Label>
         <Input
           id="destination"
           placeholder="e.g. Tokyo, Japan"
           value={destination}
           onChange={(e) => setDestination(e.target.value)}
           required
+          className="bg-background border-foreground/40 h-11"
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div className="grid gap-2">
-          <Label htmlFor="days">Days</Label>
+          <Label htmlFor="days" className="tracking-wide">
+            Days
+          </Label>
           <Input
             id="days"
             type="number"
@@ -78,32 +79,39 @@ export function TripSearchForm() {
             max={30}
             value={days}
             onChange={(e) => setDays(Number(e.target.value))}
+            className="bg-background border-foreground/40 h-11"
           />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="travelers">Travelers</Label>
+          <Label htmlFor="travelers" className="tracking-wide">
+            Travelers
+          </Label>
           <Input
             id="travelers"
             type="number"
             min={1}
             value={travelers}
             onChange={(e) => setTravelers(Number(e.target.value))}
+            className="bg-background border-foreground/40 h-11"
           />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="budget">Budget (USD)</Label>
+          <Label htmlFor="budget" className="tracking-wide">
+            Budget (USD)
+          </Label>
           <Input
             id="budget"
             type="number"
             min={1}
             value={budget}
             onChange={(e) => setBudget(Number(e.target.value))}
+            className="bg-background border-foreground/40 h-11"
           />
         </div>
       </div>
 
-      <div className="grid gap-2">
-        <Label>Travel style</Label>
+      <div className="grid gap-3">
+        <Label className="tracking-wide">Travel style</Label>
         <div className="flex flex-wrap gap-2">
           {TRAVEL_STYLES.map((style) => {
             const selected = styles.includes(style);
@@ -112,10 +120,10 @@ export function TripSearchForm() {
                 type="button"
                 key={style}
                 onClick={() => toggleStyle(style)}
-                className={`rounded-full border px-3 py-1 text-sm transition-colors ${
+                className={`border px-4 py-1.5 text-sm tracking-wide transition-colors ${
                   selected
-                    ? "bg-primary text-primary-foreground border-primary"
-                    : "bg-transparent text-foreground border-border hover:bg-accent"
+                    ? "bg-foreground text-background border-foreground"
+                    : "bg-transparent text-foreground border-foreground/40 hover:border-foreground"
                 }`}
               >
                 {style}
@@ -125,9 +133,12 @@ export function TripSearchForm() {
         </div>
       </div>
 
-      <Button type="submit" size="lg" className="w-full">
+      <button
+        type="submit"
+        className="w-full bg-foreground text-background py-3.5 text-sm tracking-widest uppercase hover:opacity-85 transition-opacity"
+      >
         Generate My Trip
-      </Button>
+      </button>
     </form>
   );
 }

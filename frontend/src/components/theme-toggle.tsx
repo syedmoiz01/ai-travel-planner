@@ -9,10 +9,8 @@ export function ThemeToggle() {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem("theme");
-    const prefersDark =
-      stored === "dark" ||
-      (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    // Light-first design (per the template); dark only when explicitly chosen.
+    const prefersDark = localStorage.getItem("theme") === "dark";
     // Reading localStorage/matchMedia requires the client; can't derive during render (SSR has no window).
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsDark(prefersDark);
